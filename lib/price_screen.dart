@@ -2,6 +2,7 @@ import 'package:bitcoin_ticker/currency_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:crypto_font_icons/crypto_font_icons.dart';
+import 'package:flutter/widgets.dart';
 import 'currency_card.dart';
 import 'currency_type.dart';
 import 'coin_data.dart';
@@ -10,6 +11,7 @@ import 'dart:io' show Platform;
 
 String selectedCurrency = 'USD';
 List<String> values = ['?', '?', '?', '?', '?'];
+List<bool>   visibility = [true, true, true, true, true];
 int amount = 1;
 var cryptoData;
 
@@ -100,68 +102,105 @@ class _PriceScreenState extends State<PriceScreen> {
       appBar: AppBar(
         title: Text('🤑 Coin Ticker'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: ListView(
+        reverse: true,
         children: <Widget>[
           Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              CurrencyCard(
-                cryptoCurrency: 'BTC',
-                value: values[kBTC],
-                icon: CryptoFontIcons.BTC,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () => setState(() => visibility[kBTC] = false),
+                    child: CurrencyCard(
+                      cryptoCurrency: 'BTC',
+                      value: values[kBTC],
+                      icon: CryptoFontIcons.BTC,
+                      visibility: visibility[kBTC],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => setState(() => visibility[kETH] = false),
+                    child: CurrencyCard(
+                      cryptoCurrency: 'ETH',
+                      value: values[kETH],
+                      icon: CryptoFontIcons.ETH,
+                      visibility: visibility[kETH],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => setState(() => visibility[kXRP] = false),
+                    child: CurrencyCard(
+                      cryptoCurrency: 'XRP',
+                      value: values[kXRP],
+                      icon: CryptoFontIcons.XRP,
+                      visibility: visibility[kXRP],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => setState(() => visibility[kLTC] = false),
+                    child: CurrencyCard(
+                      cryptoCurrency: 'LTC',
+                      value: values[kLTC],
+                      icon: CryptoFontIcons.LTC,
+                      visibility: visibility[kLTC],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => setState(() => visibility[kXMR] = false),
+                    child: CurrencyCard(
+                      cryptoCurrency: 'XMR',
+                      value: values[kXMR],
+                      icon: CryptoFontIcons.XMR,
+                      visibility: visibility[kXMR],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => setState(() {
+                      visibility = [true, true, true, true, true];
+                    }),
+                    child: CurrencyType(
+                      currency: selectedCurrency,
+                    ),
+                  ),
+                ],
               ),
-              CurrencyCard(
-                cryptoCurrency: 'ETH',
-                value: values[kETH],
-                icon: CryptoFontIcons.ETH,
-              ),
-              CurrencyCard(
-                cryptoCurrency: 'XRP',
-                value: values[kXRP],
-                icon: CryptoFontIcons.XRP,
-              ),
-              CurrencyCard(
-                cryptoCurrency: 'LTC',
-                value: values[kLTC],
-                icon: CryptoFontIcons.LTC,
-              ),
-              CurrencyCard(
-                cryptoCurrency: 'XMR',
-                value: values[kXMR],
-                icon: CryptoFontIcons.XMR,
-              ),
-              CurrencyType(
-                currency: selectedCurrency,
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(right: 40.0, left: 10.0),
+                    child: TextField(
+                      onChanged: (value) {
+                        try {
+                          int nbr = int.parse(value);
+                          amount = nbr;
+                        } catch(e) {
+                          print(e);
+                        }
+                        setState(() => updateValues());
+                      },
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.monetization_on),
+                        filled: true,
+                        fillColor: Colors.grey[600],
+                        hintText: 'Put a number',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 100.0,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(bottom: 30.0),
+                    color: kColorElts,
+                    child: Platform.isAndroid ? androidPicker() : iosPicker(),
+                  ),
+                ],
               ),
             ],
-          ),
-          Container(
-            padding: EdgeInsets.only(right: 40.0, left: 10.0),
-            child: TextField(
-              onChanged: (value) {
-                try {
-                  int nbr = int.parse(value);
-                  amount = nbr;
-                } catch(e) {
-                  print(e);
-                }
-                setState(() => updateValues());
-              },
-              decoration: InputDecoration(
-                icon: Icon(Icons.monetization_on),
-                filled: true,
-                fillColor: Colors.grey[600],
-                hintText: 'Put a number',
-              ),
-            ),
-          ),
-          Container(
-            height: 100.0,
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(bottom: 30.0),
-            color: kColorElts,
-            child: Platform.isAndroid ? androidPicker() : iosPicker(),
           ),
         ],
       ),
