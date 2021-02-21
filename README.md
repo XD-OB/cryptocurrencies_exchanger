@@ -1,18 +1,20 @@
 # Crypto Currency Ticker 🤑
 
-A crypto currency price checking app.
+A crypto currency price checking app built using **Flutter**
+
+![Crypto screen](/ressources/crypto1.jpg)
 
 ## Libraries:
 
-Cupertino
+- Cupertino
 
 ## Packages:
 
-[Crypto Icons](https://pub.dev/packages/crypto_font_icons)
+- [Crypto Icons](https://pub.dev/packages/crypto_font_icons)
 
 ## API:
 
-[Nomics Documentation](http://docs.nomics.com/)
+- [Nomics Documentation](http://docs.nomics.com/)
 
 ## Some recommanded tools, chrome extensions:
 
@@ -25,4 +27,10 @@ Cupertino
 - How to check the platform your app is being run on to customise the UI for that platform.
 - Revise previous concepts by completing the challenges.
 
-## obelouch 1337
+## Owner
+
+- Oussama Belouche 1337
+
+#
+[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
